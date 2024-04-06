@@ -2,13 +2,9 @@ package com.example.chat
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.util.toRange
-import androidx.core.view.marginBottom
-import androidx.core.view.marginEnd
 
 import com.example.chat.placeholder.PlaceholderContent.PlaceholderItem
 import com.example.chat.databinding.ChatCardBinding
