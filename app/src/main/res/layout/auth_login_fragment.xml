@@ -4,11 +4,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AuthLoginFragment">
-
     <RelativeLayout
         android:id="@+id/authrelative"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <View
+            android:layout_width="24dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/diag_grid_white_background_trans"
+            android:layout_alignParentLeft="true"/>
+        <View
+            android:layout_width="24dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:background="@drawable/diag_grid_white_background_trans"
+            android:layout_alignParentRight="true"/>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:padding="15dp"
+            android:layout_marginRight="18dp"
+            android:src="@drawable/settings_icon"
+            android:theme="@style/MaterialButton"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_alignParentEnd="true"
+            android:clickable="true"
+            />
         <LinearLayout
             android:id="@+id/loginlinear"
             android:layout_width="wrap_content"
@@ -40,7 +61,7 @@
                 android:hint="Пароль"/>
             <Button
                 android:id="@+id/loginbutton"
-                android:theme="@style/Button.Purple"
+                android:theme="@style/RedButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Зайти"

@@ -19,10 +19,10 @@ class ChatListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.chats_fragment_list, container, false)
+        val view = inflater.inflate(R.layout.chatlist_fragment, container, false)
 
         var chat_fragment = ChatFragment
-            .newInstance("Some chat", "30 members")
+            .newInstance("Some chat", "3 members")
 
         parentFragmentManager
             .beginTransaction()

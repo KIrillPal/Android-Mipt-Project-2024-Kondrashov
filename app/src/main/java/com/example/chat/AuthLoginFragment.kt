@@ -17,10 +17,10 @@ class AuthLoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_auth_login_screen, container, false)
+        val view = inflater.inflate(R.layout.auth_login_fragment, container, false)
         parentFragmentManager
             .beginTransaction()
-            .add(R.id.main_fragment_container, ChatListFragment())
+            .add(R.id.main_fragment_container, SettingsFragment())
             .addToBackStack(null)
             .commit()
         return view
