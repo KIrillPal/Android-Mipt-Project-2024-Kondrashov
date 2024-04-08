@@ -126,6 +126,7 @@
                     android:layout_gravity="fill"
                     android:orientation="horizontal">
                     <TextView
+                        android:id="@+id/fontsizetext"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_margin="8dp"
@@ -134,7 +135,7 @@
                         android:textStyle="bold"
                         android:gravity="center" />
                     <SeekBar
-                        android:id="@+id/seekBar"
+                        android:id="@+id/fontsizebar"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:min="10"

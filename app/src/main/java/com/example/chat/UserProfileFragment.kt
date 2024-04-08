@@ -5,21 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import com.google.android.material.imageview.ShapeableImageView
 
 
-// TODO: Rename parameter arguments, choose names that match
 private const val ARG_NICKNAME = "nickname"
 private const val ARG_STATUS = "status"
 private const val ARG_INFO = "info"
 private const val ARG_ICON = "iconId"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [UserProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class UserProfileFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var nickname: String? = "Nickname"
@@ -47,25 +42,25 @@ class UserProfileFragment : Fragment() {
         val profileInfo = view.findViewById<TextView>(R.id.profileinfo)
         val profileDescr = view.findViewById<TextView>(R.id.profiledescr)
         val profileIcon = view.findViewById<ShapeableImageView>(R.id.profileicon)
+        val writeButton = view.findViewById<Button>(R.id.writebutton)
 
         profileName.text = nickname
         profileInfo.text = info
         profileDescr.text = status
         profileIcon.setImageResource(iconId!!)
+        writeButton.setOnClickListener {
+            val chat_fragment = ChatFragment.newInstance(nickname!!, status!!, iconId!!)
+            parentFragmentManager
+                .beginTransaction()
+                .add(R.id.main_fragment_container, chat_fragment)
+                .addToBackStack(null)
+                .commit()
+        }
 
         return view
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param nickname Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment UserProfileFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(nickname: String, info: String, status: String, iconId: Int) =
             UserProfileFragment().apply {

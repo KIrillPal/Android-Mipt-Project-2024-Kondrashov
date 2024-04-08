@@ -7,7 +7,8 @@
     <RelativeLayout
         android:id="@+id/authrelative"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#F9F9F9">
         <View
             android:layout_width="24dp"
             android:layout_height="match_parent"
@@ -30,6 +31,7 @@
             android:background="@drawable/diag_grid_white_background_trans"
             android:layout_alignParentRight="true"/>
         <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/regsettings"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:padding="15dp"
@@ -64,22 +66,25 @@
                 android:id="@+id/newlogintext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="21dp"
                 android:maxLines="1"
                 android:hint="Ваш логин"/>
             <EditText
                 android:id="@+id/newpasswordtext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="21dp"
                 android:maxLines="1"
                 android:hint="Ваш пароль"/>
             <EditText
-                android:id="@+id/mewpasswordconfirm"
+                android:id="@+id/newpasswordconfirm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="21dp"
                 android:maxLines="1"
                 android:hint="Повторите пароль"/>
             <Button
-                android:id="@+id/registerbutton"
+                android:id="@+id/regsignupbutton"
                 android:theme="@style/RedButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

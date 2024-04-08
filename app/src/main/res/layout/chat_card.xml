@@ -6,10 +6,11 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_marginTop="0dp"
-    android:layout_marginBottom="10dp"
+    android:layout_marginBottom="7dp"
     android:elevation="20dp"
     android:background="@drawable/diag_grid_white_background">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/cardclickable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -17,10 +18,11 @@
         android:background="?attr/selectableItemBackground">
         >
         <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/chaticon"
             android:layout_width="85dp"
             android:layout_height="85dp"
             android:layout_margin="5dp"
-            android:src="@drawable/kitty"
+            android:src="@color/main"
             android:theme="@style/Icon"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
@@ -29,9 +31,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:layout_weight="1"
             android:layout_alignParentStart="true">
             <TextView
-                android:id="@+id/content"
+                android:id="@+id/chatname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -40,6 +43,7 @@
                 android:textStyle="bold"
                 android:textAppearance="?attr/textAppearanceListItem" />
             <TextView
+                android:id="@+id/lastmessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -53,24 +57,27 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_weight="0">
             <TextView
+                android:id="@+id/lastmessagecnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/new_messages_counter"
                 android:layout_margin="5dp"
                 android:layout_gravity="end"
-                android:text="5"
+                android:text="15"
                 android:textSize="22dp"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
                 android:elevation="10dp"
                 android:textAppearance="?attr/textAppearanceListItem" />
             <TextView
+                android:id="@+id/lastmessagetime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_gravity="end"
                 android:text="22:03"
                 android:maxLines="1"

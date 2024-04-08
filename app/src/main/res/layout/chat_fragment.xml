@@ -16,9 +16,10 @@
             android:layout_height="wrap_content"
             android:elevation="8dp">
             <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/chaticon"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:src="@drawable/kitty"
+                android:src="@color/main"
                 android:theme="@style/Icon"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"/>
@@ -89,6 +90,39 @@
             tools:listitem="@layout/other_message"
             android:background="@drawable/chat_background"
             android:scrollbars="vertical"
+            android:layout_weight="20"
             />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:background="#F3F3F3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="8dp"
+            android:layout_weight="0">
+            <EditText
+                android:id="@+id/tosend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="15dp"
+                android:hint="Сообщение"
+                android:background="@null"
+                android:textColor="#353535"
+                android:textSize="20dp"
+                android:layout_weight="10"
+                android:layout_gravity="center"/>
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:padding="15dp"
+                android:src="@drawable/send_icon"
+                android:theme="@style/MaterialButton"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:layout_weight="0"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
     </LinearLayout>
 </FrameLayout>

@@ -38,7 +38,8 @@
                     android:textSize="28dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="0dp"
-                    android:maxLines="1"/>
+                    android:maxLines="1"
+                    android:scrollbars="horizontal"/>
                 <TextView
                     android:id="@+id/profileinfo"
                     android:layout_width="match_parent"
@@ -47,19 +48,19 @@
                     android:text="online"
                     android:textColor="#ADB8FF"
                     android:textStyle="bold"
-                    android:textSize="16dp"/>
+                    android:textSize="18dp"/>
                 <TextView
                     android:id="@+id/profiledescr"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="7dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginEnd="10dp"
                     android:scrollbars="vertical"
                     android:text="описание этого замечательного человека (или чата)"
                     android:textColor="#FFC9C9"
-                    android:textSize="16dp"/>
+                    android:textSize="18dp"/>
             </LinearLayout>
         </LinearLayout>
         <RelativeLayout

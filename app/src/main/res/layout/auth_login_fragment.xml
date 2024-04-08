@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AuthLoginFragment">
+    tools:context=".AuthLoginFragment"
+    android:background="#F9F9F9">
     <RelativeLayout
         android:id="@+id/authrelative"
         android:layout_width="match_parent"
@@ -20,6 +21,7 @@
             android:background="@drawable/diag_grid_white_background_trans"
             android:layout_alignParentRight="true"/>
         <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/authsettings"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:padding="15dp"
@@ -52,11 +54,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
+                android:textSize="21dp"
                 android:hint="Логин"/>
             <EditText
                 android:id="@+id/passwordtext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="21dp"
                 android:maxLines="1"
                 android:hint="Пароль"/>
             <Button
@@ -88,6 +92,7 @@
                 android:layout_marginBottom="7dp"
                 android:text="Еще не смешарик?"/>
             <Button
+                android:id="@+id/signupbutton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="ЗАРЕГИСТРИРОВАТЬСЯ"

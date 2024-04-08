@@ -1,5 +1,6 @@
 package com.example.chat
 
+import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -7,13 +8,13 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.util.toRange
 import androidx.core.view.marginBottom
 import androidx.core.view.marginEnd
 import com.google.android.material.imageview.ShapeableImageView
 
-import com.example.chat.placeholder.PlaceholderContent.PlaceholderItem
 import com.example.chat.databinding.ChatCardBinding
 import com.example.chat.databinding.MyMessageBinding
 import com.example.chat.databinding.OtherMessageBinding
@@ -34,6 +35,7 @@ data class MessageData (
 class ChatAdapter(
     private val values: List<MessageData>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    lateinit var context: Context
 
     inner class MyMessageViewHolder(binding: MyMessageBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -59,6 +61,7 @@ class ChatAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : RecyclerView.ViewHolder {
+        context = parent.context
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             R.layout.my_message -> MyMessageViewHolder(
@@ -72,6 +75,7 @@ class ChatAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val fragmentManager = (context as AppCompatActivity).supportFragmentManager
         val item = values[position]
 
         when (holder.itemViewType) {
@@ -94,7 +98,18 @@ class ChatAdapter(
                 else hld.authorNameView.text = item.authorName
                 if (item.authorIconId === null)
                     hld.authorIconView.visibility=View.GONE
-                else hld.authorIconView.setImageResource(item.authorIconId)
+                else {
+                    hld.authorIconView.setImageResource(item.authorIconId)
+                    hld.authorIconView.setOnClickListener {
+                        val profile_fragment =
+                            UserProfileFragment.newInstance(item.authorName!!, "online", "Unknown description", item.authorIconId)
+                        fragmentManager
+                            .beginTransaction()
+                            .add(R.id.main_fragment_container, profile_fragment)
+                            .addToBackStack(null)
+                            .commit()
+                    }
+                }
 
                 if (hld.messageLayout.height * 2 < hld.messageLayout.width)
                     hld.messageLayout.rotation=(-10..10).random() / 10f

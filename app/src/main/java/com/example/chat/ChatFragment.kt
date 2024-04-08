@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.chat.placeholder.PlaceholderContent
+import com.google.android.material.imageview.ShapeableImageView
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -16,6 +16,7 @@ import java.util.Locale
 
 private const val ARG_CHATNAME = "chatname"
 private const val ARG_CHATDESCR = "description"
+private const val ARG_CHATICONID = "iconId"
 
 fun timeToStamp(time: String): Long {
     return SimpleDateFormat("HH:mm", Locale.US).parse(time)!!.time
@@ -24,12 +25,14 @@ fun timeToStamp(time: String): Long {
 class ChatFragment : Fragment() {
     private var chatname: String? = null
     private var chatdescr: String? = null
+    private var chaticonid: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             chatname = it.getString(ARG_CHATNAME)
             chatdescr = it.getString(ARG_CHATDESCR)
+            chaticonid = it.getInt(ARG_CHATICONID)
         }
     }
 
@@ -43,6 +46,20 @@ class ChatFragment : Fragment() {
 
         val chatDescrView = view.findViewById<TextView>(R.id.chatdescr)
         chatDescrView.text = chatdescr
+
+        val chatIconView = view.findViewById<ShapeableImageView>(R.id.chaticon)
+        if (chaticonid != null) {
+            chatIconView.setImageResource(chaticonid!!)
+            chatIconView.setOnClickListener {
+                val profile_fragment =
+                    UserProfileFragment.newInstance(chatname!!, "online", chatdescr!!, chaticonid!!)
+                parentFragmentManager
+                    .beginTransaction()
+                    .add(R.id.main_fragment_container, profile_fragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+        }
 
         val messagelist = view.findViewById<RecyclerView>(R.id.messagelist)
 
@@ -94,11 +111,12 @@ class ChatFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(name: String, description: String) =
+        fun newInstance(name: String, description: String, iconId: Int) =
             ChatFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_CHATNAME, name)
                     putString(ARG_CHATDESCR, description)
+                    putInt(ARG_CHATICONID, iconId)
                 }
             }
     }
