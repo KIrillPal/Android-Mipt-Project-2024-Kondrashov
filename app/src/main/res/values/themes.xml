@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.Chat" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.Chat" parent="android:Theme.Material.NoActionBar" />
     <style name="RedButton" parent="ThemeOverlay.AppCompat">
         <item name="colorButtonNormal">@color/main</item>
         <item name="android:textColor">@color/white</item>

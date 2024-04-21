@@ -57,4 +57,39 @@ class SignupFragment : ControlledFragment() {
 
         return view
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        val loginView = view?.findViewById<EditText>(R.id.newlogintext)
+        val passwordView = view?.findViewById<EditText>(R.id.newpasswordtext)
+        val passwordConfirmView = view?.findViewById<EditText>(R.id.newpasswordconfirm)
+        backup = Backup(
+            loginView?.text.toString(),
+            passwordView?.text.toString(),
+            passwordConfirmView?.text.toString()
+        )
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString(LOGIN_KEY, backup.login)
+        outState.putString(PASSWORD_KEY, backup.password)
+        outState.putString(CONFIRM_PASSWORD_KEY, backup.passwordConfirm)
+        outState.putInt(NavController.LAST_FRAGMENT_KEY, NavController.SIGNUP_FRAGMENT)
+        Log.i("scrid", "loaded")
+        super.onSaveInstanceState(outState)
+    }
+
+    data class Backup (
+        val login: String,
+        val password: String,
+        val passwordConfirm: String
+    )
+
+    var backup : Backup = Backup("", "", "")
+
+    companion object {
+        val LOGIN_KEY = "SignupFragment_login"
+        val PASSWORD_KEY = "SignupFragment_password"
+        val CONFIRM_PASSWORD_KEY = "SignupFragment_confirm_password"
+    }
 }

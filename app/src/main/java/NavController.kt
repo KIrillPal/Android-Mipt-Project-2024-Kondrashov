@@ -1,7 +1,9 @@
 package com.example.chat
 
+import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 
@@ -103,5 +105,47 @@ class NavController(
             .add(R.id.main_fragment_container, chat)
             .addToBackStack(null)
             .commit()
+    }
+
+    fun restoreLastFragment(state: Bundle) {
+        val screenId = state.getInt(LAST_FRAGMENT_KEY) ?: SPLASH_SCREEN
+        Log.i("scrid", screenId.toString())
+        when (screenId) {
+            SPLASH_SCREEN -> openSplashScreen()
+            LOGIN_FRAGMENT -> openLoginScreen()
+            SIGNUP_FRAGMENT -> openSignupScreen()
+            CHATLIST_FRAGMENT -> openChatListFragment()
+            CHAT_FRAGMET -> openChat(
+                state.getString(CURR_CHAT_NAME_KEY) ?: "Unknown",
+                state.getString(CURR_CHAT_DESCR_KEY) ?: "Unknown",
+                state.getInt(CURR_CHAT_ICON_KEY) ?: R.drawable.green_kitty
+            )
+            PROFILE_FRAGMENT -> openProfile(
+                state.getString(CURR_PROFILE_NAME_KEY) ?: "Unknown",
+                state.getString(CURR_PROFILE_INFO_KEY) ?: "Unknown",
+                state.getString(CURR_PROFILE_STATUS_KEY) ?: "Unknown",
+                state.getInt(CURR_PROFILE_ICON_KEY) ?: R.drawable.green_kitty,
+            )
+            SETTINGS_FRAGMENT -> openSettingsScreen()
+        }
+    }
+
+    public companion object {
+        const val SPLASH_SCREEN     = 0
+        const val LOGIN_FRAGMENT    = 1
+        const val SIGNUP_FRAGMENT   = 2
+        const val CHATLIST_FRAGMENT = 3
+        const val CHAT_FRAGMET      = 4
+        const val PROFILE_FRAGMENT  = 5
+        const val SETTINGS_FRAGMENT = 6
+
+        const val LAST_FRAGMENT_KEY   = "last_fragment"
+        const val CURR_CHAT_NAME_KEY  = "curr_chat_name"
+        const val CURR_CHAT_DESCR_KEY = "curr_chat_descr"
+        const val CURR_CHAT_ICON_KEY  = "curr_chat_icon"
+        const val CURR_PROFILE_NAME_KEY   = "curr_profile_name"
+        const val CURR_PROFILE_INFO_KEY   = "curr_profile_info"
+        const val CURR_PROFILE_STATUS_KEY = "curr_profile_status"
+        const val CURR_PROFILE_ICON_KEY   = "curr_profile_icon"
     }
 }
