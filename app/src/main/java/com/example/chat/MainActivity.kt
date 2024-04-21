@@ -1,5 +1,8 @@
 package com.example.chat
 
+import android.content.Intent
+import android.content.Intent.ACTION_MAIN
+import android.net.Uri
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
@@ -17,21 +20,21 @@ interface HasController {
 
 class MainActivity : AppCompatActivity(), HasController {
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.i("debug", supportFragmentManager.backStackEntryCount.toString())
-        Log.i("saved", "0")
         super.onCreate(savedInstanceState)
-        Log.i("saved", "1")
-        Log.i("saved", "2")
         setContentView(R.layout.main_activity)
-        Log.i("saved", "3")
-        if (savedInstanceState != null) {
-            Log.i("saved", "Restore")
-            controller.restoreLastFragment(savedInstanceState)
+        if (intent?.action != ACTION_MAIN) {
+            processIntent()
         }
-        else {
-            Log.i("saved", "Load")
+        else if (savedInstanceState == null) {
             controller.openSplashScreen()
         }
+        // Else we restore automatically
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        processIntent()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -42,9 +45,60 @@ class MainActivity : AppCompatActivity(), HasController {
         return controller
     }
 
-    private val controller = NavController(supportFragmentManager)
-
-    companion object {
-        const val LAST_FRAGMENT_KEY = "last_fragment"
+    fun checkCredentials(uri : Uri?) : Boolean {
+        val paramSet = uri?.getQueryParameterNames()
+        val login = uri?.getQueryParameter("login")
+        val password = uri?.getQueryParameter("password")
+        return (login == resources.getString(R.string.user_login) &&
+                password == resources.getString(R.string.user_password))
     }
+
+    private fun processIntent() {
+        val action: String? = intent?.action
+        val data: Uri? = intent?.data
+
+        getNavController().clearBackStack()
+
+        when (data?.host) {
+            "login" -> controller.openLoginScreen()
+            "signup" -> {
+                controller.openLoginScreen()
+                controller.openSignupScreen()
+            }
+            "chatlist" -> {
+                if (checkCredentials(data))
+                    controller.openChatListFragment()
+                else controller.openLoginScreen()
+            }
+            "chat" -> {
+                if (!checkCredentials(data)) {
+                    controller.openLoginScreen()
+                    return
+                }
+                val name = data?.getQueryParameter("chatname")
+                val descr = data?.getQueryParameter("descr") ?: ""
+                val iconid = data?.getQueryParameter("iconid")?.toInt() ?: R.drawable.green_kitty
+
+                controller.openChatListFragment()
+                if (name != null)
+                    controller.openChat(name, descr, iconid)
+            }
+            "profile" -> {
+                if (!checkCredentials(data)) {
+                    controller.openLoginScreen()
+                    return
+                }
+                val name = data?.getQueryParameter("profile")
+                val info = data?.getQueryParameter("info") ?: ""
+                val status = data?.getQueryParameter("status") ?: ""
+                val iconid = data?.getQueryParameter("iconid")?.toInt() ?: R.drawable.green_kitty
+
+                controller.openChatListFragment()
+                if (name != null)
+                    controller.openProfile(name, info, status, iconid)
+            }
+        }
+    }
+
+    private val controller = NavController(supportFragmentManager)
 }

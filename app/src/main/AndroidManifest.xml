@@ -16,11 +16,22 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
+            android:alwaysRetainTaskState="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="@string/scheme" android:host="login" />
+                <data android:scheme="@string/scheme" android:host="signup" />
+                <data android:scheme="@string/scheme" android:host="chatlist" />
+                <data android:scheme="@string/scheme" android:host="chat" />
+                <data android:scheme="@string/scheme" android:host="profile" />
             </intent-filter>
         </activity>
     </application>

@@ -37,6 +37,14 @@ class SignupFragment : ControlledFragment() {
         val passwordView = view.findViewById<EditText>(R.id.newpasswordtext)
         val passwordConfirmView = view.findViewById<EditText>(R.id.newpasswordconfirm)
 
+        var state = savedInstanceState
+
+        if (state != null) {
+            loginView.setText(state.getString(LOGIN_KEY) ?: "")
+            passwordView.setText(state.getString(PASSWORD_KEY) ?: "")
+            passwordConfirmView.setText(state.getString(CONFIRM_PASSWORD_KEY) ?: "")
+        }
+
         submit.setOnClickListener {
 
             val password1 = passwordView.text.toString()
@@ -58,25 +66,16 @@ class SignupFragment : ControlledFragment() {
         return view
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
         val loginView = view?.findViewById<EditText>(R.id.newlogintext)
         val passwordView = view?.findViewById<EditText>(R.id.newpasswordtext)
         val passwordConfirmView = view?.findViewById<EditText>(R.id.newpasswordconfirm)
-        backup = Backup(
-            loginView?.text.toString(),
-            passwordView?.text.toString(),
-            passwordConfirmView?.text.toString()
-        )
-    }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString(LOGIN_KEY, backup.login)
-        outState.putString(PASSWORD_KEY, backup.password)
-        outState.putString(CONFIRM_PASSWORD_KEY, backup.passwordConfirm)
-        outState.putInt(NavController.LAST_FRAGMENT_KEY, NavController.SIGNUP_FRAGMENT)
-        Log.i("scrid", "loaded")
-        super.onSaveInstanceState(outState)
+        outState.putString(LOGIN_KEY, loginView?.text.toString())
+        outState.putString(PASSWORD_KEY, passwordView?.text.toString())
+        outState.putString(CONFIRM_PASSWORD_KEY, passwordConfirmView?.text.toString())
     }
 
     data class Backup (

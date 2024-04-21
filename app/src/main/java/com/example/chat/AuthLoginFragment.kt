@@ -17,6 +17,7 @@ class AuthLoginFragment : ControlledFragment() {
         if (savedInstanceState != null) {
             getNavController()?.openLoginScreen()
         }
+        setRetainInstance(true)
     }
 
     override fun onCreateView(
@@ -31,14 +32,16 @@ class AuthLoginFragment : ControlledFragment() {
         val loginView = view.findViewById<EditText>(R.id.logintext)
         val passwordView = view.findViewById<EditText>(R.id.passwordtext)
 
-        if (savedInstanceState != null) {
-            loginView.setText(savedInstanceState.getString(LOGIN_KEY) ?: "")
-            passwordView.setText(savedInstanceState.getString(PASSWORD_KEY) ?: "")
+        var state = savedInstanceState
+
+        if (state != null) {
+            loginView.setText(state.getString(LOGIN_KEY) ?: "")
+            passwordView.setText(state.getString(PASSWORD_KEY) ?: "")
         }
 
         submit.setOnClickListener {
-            val trueLogin = "nickname"
-            val truePassword = "password"
+            val trueLogin = resources.getString(R.string.user_login)
+            val truePassword = resources.getString(R.string.user_password)
 
             val gotLogin = loginView.text.toString()
             val gotPassword = passwordView.text.toString()
@@ -65,12 +68,12 @@ class AuthLoginFragment : ControlledFragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
         val loginView = view?.findViewById<EditText>(R.id.logintext)
         val passwordView = view?.findViewById<EditText>(R.id.passwordtext)
         outState.putString(LOGIN_KEY, loginView?.text.toString())
         outState.putString(PASSWORD_KEY, passwordView?.text.toString())
-        outState.putInt(NavController.LAST_FRAGMENT_KEY, NavController.LOGIN_FRAGMENT)
-        super.onSaveInstanceState(outState)
     }
 
     companion object {
