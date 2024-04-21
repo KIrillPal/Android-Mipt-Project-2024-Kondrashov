@@ -20,7 +20,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [SignupFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class SignupFragment : Fragment() {
+class SignupFragment : ControlledFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,19 +46,13 @@ class SignupFragment : Fragment() {
                 // TODO: Passwords are not the same!
                 Log.i("ddd", "Passwords are not the same")
             }
-            else parentFragmentManager
-                .beginTransaction()
-                .add(R.id.main_fragment_container, ChatListFragment())
-                .commit()
+            else getNavController()?.openChatListFragment()
+
         }
 
         val settingsButton = view.findViewById<ShapeableImageView>(R.id.regsettings)
         settingsButton.setOnClickListener {
-            parentFragmentManager
-                .beginTransaction()
-                .add(R.id.main_fragment_container, SettingsFragment())
-                .addToBackStack(null)
-                .commit()
+            getNavController()?.openSettingsScreen()
         }
 
         return view

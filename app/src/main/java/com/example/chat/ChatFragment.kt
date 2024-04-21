@@ -22,7 +22,7 @@ fun timeToStamp(time: String): Long {
     return SimpleDateFormat("HH:mm", Locale.US).parse(time)!!.time
 }
 
-class ChatFragment : Fragment() {
+class ChatFragment : ControlledFragment() {
     private var chatname: String? = null
     private var chatdescr: String? = null
     private var chaticonid: Int? = null
@@ -51,13 +51,12 @@ class ChatFragment : Fragment() {
         if (chaticonid != null) {
             chatIconView.setImageResource(chaticonid!!)
             chatIconView.setOnClickListener {
-                val profile_fragment =
-                    UserProfileFragment.newInstance(chatname!!, "online", chatdescr!!, chaticonid!!)
-                parentFragmentManager
-                    .beginTransaction()
-                    .add(R.id.main_fragment_container, profile_fragment)
-                    .addToBackStack(null)
-                    .commit()
+                getNavController()?.openProfile(
+                    chatname!!,
+                    "online",
+                    chatdescr!!,
+                    chaticonid!!
+                )
             }
         }
 

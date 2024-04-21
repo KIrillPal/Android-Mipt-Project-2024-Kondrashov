@@ -20,6 +20,12 @@
     <style name="MaterialButton">
         <item name="cornerSize">20%</item>
     </style>
+    <style name="CircularProgressBar">
+        <item name="indicatorColor">@color/purple_500</item>
+        <item name="indicatorSize">64dp</item>
+        <item name="trackColor">@color/purple_500</item>
+        <item name="trackThickness">8dp</item>
+    </style>
     <style name="SeekBar"
         parent="Widget.AppCompat.SeekBar">
         <item name="colorAccent">@color/main</item>

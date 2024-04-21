@@ -75,7 +75,7 @@ class ChatAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val fragmentManager = (context as AppCompatActivity).supportFragmentManager
+        val controller = (context as? MainActivity)?.getNavController()
         val item = values[position]
 
         when (holder.itemViewType) {
@@ -101,13 +101,12 @@ class ChatAdapter(
                 else {
                     hld.authorIconView.setImageResource(item.authorIconId)
                     hld.authorIconView.setOnClickListener {
-                        val profile_fragment =
-                            UserProfileFragment.newInstance(item.authorName!!, "online", "Unknown description", item.authorIconId)
-                        fragmentManager
-                            .beginTransaction()
-                            .add(R.id.main_fragment_container, profile_fragment)
-                            .addToBackStack(null)
-                            .commit()
+                        controller?.openProfile(
+                            item.authorName!!,
+                            "online",
+                            "Unknown description",
+                            item.authorIconId
+                        )
                     }
                 }
 

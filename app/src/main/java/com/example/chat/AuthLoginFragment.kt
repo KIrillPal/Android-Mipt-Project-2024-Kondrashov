@@ -10,7 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import com.google.android.material.imageview.ShapeableImageView
 
-class AuthLoginFragment : Fragment() {
+class AuthLoginFragment : ControlledFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +20,8 @@ class AuthLoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val controller = getNavController()
+
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.auth_login_fragment, container, false)
 
@@ -38,29 +40,18 @@ class AuthLoginFragment : Fragment() {
                 // TODO: Show 'Invalid login or password' tip
                 Log.i("ddd", "Invalid login or password. Got '${gotLogin}' and '${gotPassword}'")
             }
-            else parentFragmentManager
-                .beginTransaction()
-                .add(R.id.main_fragment_container, ChatListFragment())
-                .commit()
+            else controller?.openChatListFragment()
         }
 
         val registerButton = view.findViewById<Button>(R.id.signupbutton)
         val settingsButton = view.findViewById<ShapeableImageView>(R.id.authsettings)
 
         registerButton.setOnClickListener {
-            parentFragmentManager
-                .beginTransaction()
-                .add(R.id.main_fragment_container, SignupFragment())
-                .addToBackStack(null)
-                .commit()
+            controller?.openSignupScreen()
         }
 
         settingsButton.setOnClickListener {
-            parentFragmentManager
-                .beginTransaction()
-                .add(R.id.main_fragment_container, SettingsFragment())
-                .addToBackStack(null)
-                .commit()
+            controller?.openSettingsScreen()
         }
 
         return view

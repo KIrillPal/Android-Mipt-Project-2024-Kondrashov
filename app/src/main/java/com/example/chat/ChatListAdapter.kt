@@ -38,7 +38,7 @@ class ChatListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val fragmentManager = (context as AppCompatActivity).supportFragmentManager
+        val controller = (context as? MainActivity)?.getNavController()
 
         val item = values[position]
         holder.chatNameView.text = item.chatName
@@ -49,12 +49,12 @@ class ChatListAdapter(
         if (item.chatIconId != null) {
             holder.chatIcon.setImageResource(item.chatIconId)
             holder.chatIcon.setOnClickListener{
-                val profile_fragment = UserProfileFragment.newInstance(item.chatName, "online", item.descr, item.chatIconId)
-                fragmentManager
-                    .beginTransaction()
-                    .add(R.id.main_fragment_container, profile_fragment)
-                    .addToBackStack(null)
-                    .commit()
+                controller?.openProfile(
+                    item.chatName,
+                    "online",
+                    item.descr,
+                    item.chatIconId
+                )
             }
         }
         val time = SimpleDateFormat("HH:mm").format(Date(item.lastMessageTime))
@@ -62,12 +62,7 @@ class ChatListAdapter(
 
         holder.cardView.rotation=(-10..10).random() / 10f
         holder.cardClickableView.setOnClickListener {
-            val chat_fragment = ChatFragment.newInstance(item.chatName, item.descr, item.chatIconId!!)
-            fragmentManager
-                .beginTransaction()
-                .add(R.id.main_fragment_container, chat_fragment)
-                .addToBackStack(null)
-                .commit()
+            controller?.openChat(item.chatName, item.descr, item.chatIconId!!)
         }
     }
 

@@ -15,7 +15,7 @@ private const val ARG_STATUS = "status"
 private const val ARG_INFO = "info"
 private const val ARG_ICON = "iconId"
 
-class UserProfileFragment : Fragment() {
+class UserProfileFragment : ControlledFragment() {
     // TODO: Rename and change types of parameters
     private var nickname: String? = "Nickname"
     private var status: String? = ""
@@ -49,12 +49,11 @@ class UserProfileFragment : Fragment() {
         profileDescr.text = status
         profileIcon.setImageResource(iconId!!)
         writeButton.setOnClickListener {
-            val chat_fragment = ChatFragment.newInstance(nickname!!, status!!, iconId!!)
-            parentFragmentManager
-                .beginTransaction()
-                .add(R.id.main_fragment_container, chat_fragment)
-                .addToBackStack(null)
-                .commit()
+            getNavController()?.openChat(
+                nickname!!,
+                status!!,
+                iconId!!
+            )
         }
 
         return view

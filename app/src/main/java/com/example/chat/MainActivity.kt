@@ -9,9 +9,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.chat.ui.theme.ChatTheme
 
+interface HasController {
+    fun getNavController() : NavController
+}
 
-class MainActivity : AppCompatActivity() {
-
+class MainActivity : AppCompatActivity(), HasController {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -21,12 +23,15 @@ class MainActivity : AppCompatActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     setContentView(R.layout.main_activity)
-                    supportFragmentManager
-                        .beginTransaction()
-                        .add(R.id.main_fragment_container, AuthLoginFragment())
-                        .commit()
+                    controller.openSplashScreen()
                 }
             }
         }
     }
+
+    override fun getNavController() : NavController {
+        return controller
+    }
+
+    private val controller = NavController(supportFragmentManager)
 }
