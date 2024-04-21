@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.imageview.ShapeableImageView
 
-class ChatListFragment : Fragment() {
+class ChatListFragment : ControlledFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,11 +38,7 @@ class ChatListFragment : Fragment() {
 
         val settingsButton = view.findViewById<ShapeableImageView>(R.id.chatssettingsbutton)
         settingsButton.setOnClickListener {
-            parentFragmentManager
-                .beginTransaction()
-                .add(R.id.main_fragment_container, SettingsFragment())
-                .addToBackStack(null)
-                .commit()
+            getNavController()?.openSettingsScreen()
         }
 
         return view

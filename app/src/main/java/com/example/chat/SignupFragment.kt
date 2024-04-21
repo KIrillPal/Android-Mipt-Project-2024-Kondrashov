@@ -20,7 +20,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [SignupFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class SignupFragment : Fragment() {
+class SignupFragment : ControlledFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +37,14 @@ class SignupFragment : Fragment() {
         val passwordView = view.findViewById<EditText>(R.id.newpasswordtext)
         val passwordConfirmView = view.findViewById<EditText>(R.id.newpasswordconfirm)
 
+        var state = savedInstanceState
+
+        if (state != null) {
+            loginView.setText(state.getString(LOGIN_KEY) ?: "")
+            passwordView.setText(state.getString(PASSWORD_KEY) ?: "")
+            passwordConfirmView.setText(state.getString(CONFIRM_PASSWORD_KEY) ?: "")
+        }
+
         submit.setOnClickListener {
 
             val password1 = passwordView.text.toString()
@@ -46,21 +54,41 @@ class SignupFragment : Fragment() {
                 // TODO: Passwords are not the same!
                 Log.i("ddd", "Passwords are not the same")
             }
-            else parentFragmentManager
-                .beginTransaction()
-                .add(R.id.main_fragment_container, ChatListFragment())
-                .commit()
+            else getNavController()?.openChatListFragment()
+
         }
 
         val settingsButton = view.findViewById<ShapeableImageView>(R.id.regsettings)
         settingsButton.setOnClickListener {
-            parentFragmentManager
-                .beginTransaction()
-                .add(R.id.main_fragment_container, SettingsFragment())
-                .addToBackStack(null)
-                .commit()
+            getNavController()?.openSettingsScreen()
         }
 
         return view
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        val loginView = view?.findViewById<EditText>(R.id.newlogintext)
+        val passwordView = view?.findViewById<EditText>(R.id.newpasswordtext)
+        val passwordConfirmView = view?.findViewById<EditText>(R.id.newpasswordconfirm)
+
+        outState.putString(LOGIN_KEY, loginView?.text.toString())
+        outState.putString(PASSWORD_KEY, passwordView?.text.toString())
+        outState.putString(CONFIRM_PASSWORD_KEY, passwordConfirmView?.text.toString())
+    }
+
+    data class Backup (
+        val login: String,
+        val password: String,
+        val passwordConfirm: String
+    )
+
+    var backup : Backup = Backup("", "", "")
+
+    companion object {
+        val LOGIN_KEY = "SignupFragment_login"
+        val PASSWORD_KEY = "SignupFragment_password"
+        val CONFIRM_PASSWORD_KEY = "SignupFragment_confirm_password"
     }
 }

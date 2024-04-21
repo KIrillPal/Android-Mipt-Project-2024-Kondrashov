@@ -10,26 +10,38 @@ import android.widget.Button
 import android.widget.EditText
 import com.google.android.material.imageview.ShapeableImageView
 
-class AuthLoginFragment : Fragment() {
+class AuthLoginFragment : ControlledFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (savedInstanceState != null) {
+            getNavController()?.openLoginScreen()
+        }
+        setRetainInstance(true)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        val controller = getNavController()
+
         val view = inflater.inflate(R.layout.auth_login_fragment, container, false)
 
         val submit = view.findViewById<Button>(R.id.loginbutton)
         val loginView = view.findViewById<EditText>(R.id.logintext)
         val passwordView = view.findViewById<EditText>(R.id.passwordtext)
 
+        var state = savedInstanceState
+
+        if (state != null) {
+            loginView.setText(state.getString(LOGIN_KEY) ?: "")
+            passwordView.setText(state.getString(PASSWORD_KEY) ?: "")
+        }
+
         submit.setOnClickListener {
-            val trueLogin = "nickname"
-            val truePassword = "password"
+            val trueLogin = resources.getString(R.string.user_login)
+            val truePassword = resources.getString(R.string.user_password)
 
             val gotLogin = loginView.text.toString()
             val gotPassword = passwordView.text.toString()
@@ -38,31 +50,34 @@ class AuthLoginFragment : Fragment() {
                 // TODO: Show 'Invalid login or password' tip
                 Log.i("ddd", "Invalid login or password. Got '${gotLogin}' and '${gotPassword}'")
             }
-            else parentFragmentManager
-                .beginTransaction()
-                .add(R.id.main_fragment_container, ChatListFragment())
-                .commit()
+            else controller?.openChatListFragment()
         }
 
         val registerButton = view.findViewById<Button>(R.id.signupbutton)
         val settingsButton = view.findViewById<ShapeableImageView>(R.id.authsettings)
 
         registerButton.setOnClickListener {
-            parentFragmentManager
-                .beginTransaction()
-                .add(R.id.main_fragment_container, SignupFragment())
-                .addToBackStack(null)
-                .commit()
+            controller?.openSignupScreen()
         }
 
         settingsButton.setOnClickListener {
-            parentFragmentManager
-                .beginTransaction()
-                .add(R.id.main_fragment_container, SettingsFragment())
-                .addToBackStack(null)
-                .commit()
+            controller?.openSettingsScreen()
         }
 
         return view
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        val loginView = view?.findViewById<EditText>(R.id.logintext)
+        val passwordView = view?.findViewById<EditText>(R.id.passwordtext)
+        outState.putString(LOGIN_KEY, loginView?.text.toString())
+        outState.putString(PASSWORD_KEY, passwordView?.text.toString())
+    }
+
+    companion object {
+        val LOGIN_KEY = "AuthLoginFragment_login"
+        val PASSWORD_KEY = "AuthLoginFragment_password"
     }
 }
