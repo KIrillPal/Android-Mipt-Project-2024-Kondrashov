@@ -11,4 +11,8 @@ open class ControlledFragment() : Fragment() {
     fun getNavController() : NavController? {
         return (requireActivity() as? MainActivity)?.getNavController()
     }
+
+    fun getDataController() : ApplicationData? {
+        return  (requireActivity() as? MainActivity)?.getData()
+    }
 }

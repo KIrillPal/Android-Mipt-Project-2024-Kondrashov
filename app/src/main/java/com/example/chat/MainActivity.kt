@@ -4,18 +4,13 @@ import android.content.Intent
 import android.content.Intent.ACTION_MAIN
 import android.net.Uri
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
-import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.ui.Modifier
-import com.example.chat.ui.theme.ChatTheme
 
 interface HasController {
     fun getNavController() : NavController
+    fun getData() : ApplicationData
 }
 
 class MainActivity : AppCompatActivity(), HasController {
@@ -45,19 +40,25 @@ class MainActivity : AppCompatActivity(), HasController {
         return controller
     }
 
-    fun checkCredentials(uri : Uri?) : Boolean {
+    override fun getData() : ApplicationData {
+        return appdata
+    }
+
+    private fun checkCredentials(uri : Uri?, onSuccess : (Int)->Unit, onFailed : ()->Unit) {
         val paramSet = uri?.getQueryParameterNames()
+        // TODO: Adapt logging through database
         val login = uri?.getQueryParameter("login")
         val password = uri?.getQueryParameter("password")
-        return (login == resources.getString(R.string.user_login) &&
-                password == resources.getString(R.string.user_password))
+        if (login != null && password != null)
+            getData()?.login(login, password, onFailed, onSuccess, onFailed)
+
     }
 
     private fun processIntent() {
         val action: String? = intent?.action
         val data: Uri? = intent?.data
 
-        getNavController().clearBackStack()
+        controller.clearBackStack()
 
         when (data?.host) {
             "login" -> controller.openLoginScreen()
@@ -66,39 +67,45 @@ class MainActivity : AppCompatActivity(), HasController {
                 controller.openSignupScreen()
             }
             "chatlist" -> {
-                if (checkCredentials(data))
+                checkCredentials(data, {
+                    Log.i("ddd", it.toString())
                     controller.openChatListFragment()
-                else controller.openLoginScreen()
+                }, {
+                    controller.openLoginScreen()
+                })
             }
             "chat" -> {
-                if (!checkCredentials(data)) {
-                    controller.openLoginScreen()
-                    return
-                }
-                val name = data?.getQueryParameter("chatname")
-                val descr = data?.getQueryParameter("descr") ?: ""
-                val iconid = data?.getQueryParameter("iconid")?.toInt() ?: R.drawable.green_kitty
+                checkCredentials(data, {
+                    val id = data?.getQueryParameter("id")?.toInt()
+                    val name = data?.getQueryParameter("chatname")
+                    val descr = data?.getQueryParameter("descr") ?: ""
+                    val iconid =
+                        data?.getQueryParameter("iconid")?.toInt() ?: R.drawable.green_kitty
 
-                controller.openChatListFragment()
-                if (name != null)
-                    controller.openChat(name, descr, iconid)
+                    controller.openChatListFragment()
+                    if (id != null && name != null)
+                        controller.openChat(id, name, descr, iconid)
+                }, {
+                    controller.openLoginScreen()
+                })
             }
             "profile" -> {
-                if (!checkCredentials(data)) {
-                    controller.openLoginScreen()
-                    return
-                }
-                val name = data?.getQueryParameter("profile")
-                val info = data?.getQueryParameter("info") ?: ""
-                val status = data?.getQueryParameter("status") ?: ""
-                val iconid = data?.getQueryParameter("iconid")?.toInt() ?: R.drawable.green_kitty
+                checkCredentials(data, {
+                    val name = data?.getQueryParameter("profile")
+                    val info = data?.getQueryParameter("info") ?: ""
+                    val status = data?.getQueryParameter("status") ?: ""
+                    val iconid = data?.getQueryParameter("iconid")?.toInt() ?: R.drawable.green_kitty
 
-                controller.openChatListFragment()
-                if (name != null)
-                    controller.openProfile(name, info, status, iconid)
+                    controller.openChatListFragment()
+                    if (name != null)
+                        controller.openProfile(1, name, info, status, iconid)
+                }, {
+                    controller.openLoginScreen()
+                })
             }
         }
     }
 
     private val controller = NavController(supportFragmentManager)
+    private val appdata : ApplicationData by viewModels()
 }

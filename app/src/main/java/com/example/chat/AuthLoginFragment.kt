@@ -8,12 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
+import androidx.lifecycle.ViewModel
 import com.google.android.material.imageview.ShapeableImageView
 
 class AuthLoginFragment : ControlledFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (getDataController()?.getUser() != null) {
+            getNavController()?.openChatListFragment()
+        }
         if (savedInstanceState != null) {
             getNavController()?.openLoginScreen()
         }
@@ -40,17 +45,16 @@ class AuthLoginFragment : ControlledFragment() {
         }
 
         submit.setOnClickListener {
-            val trueLogin = resources.getString(R.string.user_login)
-            val truePassword = resources.getString(R.string.user_password)
-
             val gotLogin = loginView.text.toString()
             val gotPassword = passwordView.text.toString()
 
-            if (gotLogin != trueLogin || gotPassword != truePassword) {
-                // TODO: Show 'Invalid login or password' tip
-                Log.i("ddd", "Invalid login or password. Got '${gotLogin}' and '${gotPassword}'")
-            }
-            else controller?.openChatListFragment()
+            getDataController()?.login(
+                gotLogin,
+                gotPassword,
+                this::onConnectionFailed,
+                this::onLoginSucceeded,
+                this::onLoginFailed
+            )
         }
 
         val registerButton = view.findViewById<Button>(R.id.signupbutton)
@@ -74,6 +78,22 @@ class AuthLoginFragment : ControlledFragment() {
         val passwordView = view?.findViewById<EditText>(R.id.passwordtext)
         outState.putString(LOGIN_KEY, loginView?.text.toString())
         outState.putString(PASSWORD_KEY, passwordView?.text.toString())
+    }
+
+    private fun onConnectionFailed() {
+        val errorTextView = view?.findViewById<TextView>(R.id.autherrortext)
+        errorTextView?.text = "Нет соединения с сервером"
+        errorTextView?.visibility = View.VISIBLE
+    }
+
+    private fun onLoginFailed() {
+        val errorTextView = view?.findViewById<TextView>(R.id.autherrortext)
+        errorTextView?.text = "Неверные логин или пароль"
+        errorTextView?.visibility = View.VISIBLE
+    }
+
+    private fun onLoginSucceeded(userId : Int) {
+        getNavController()?.openChatListFragment()
     }
 
     companion object {

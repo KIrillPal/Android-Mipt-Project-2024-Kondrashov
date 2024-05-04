@@ -92,6 +92,14 @@
                 android:textSize="20dp"
                 android:maxLines="1"
                 />
+            <TextView
+                android:id="@+id/autherrortext"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Нет соединения с сервером"
+                android:textAlignment="center"
+                android:textColor="@color/main"/>
         </LinearLayout>
     </RelativeLayout>
 </FrameLayout>

@@ -100,7 +100,7 @@
             android:elevation="8dp"
             android:layout_weight="0">
             <EditText
-                android:id="@+id/tosend"
+                android:id="@+id/sendtext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -113,6 +113,7 @@
                 android:layout_weight="10"
                 android:layout_gravity="center"/>
             <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/sendbutton"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:padding="15dp"

@@ -71,6 +71,14 @@
                 android:text="Зайти"
                 android:autoSizeTextType="uniform"
                 />
+            <TextView
+                android:id="@+id/autherrortext"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Нет соединения с сервером"
+                android:textAlignment="center"
+                android:textColor="@color/main"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
@@ -95,7 +103,7 @@
                 android:id="@+id/signupbutton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ЗАРЕГИСТРИРОВАТЬСЯ"
+                android:text="НЕ СМЕШАРИК"
                 android:autoSizeTextType="uniform"
                 android:padding="10dp"/>
         </LinearLayout>

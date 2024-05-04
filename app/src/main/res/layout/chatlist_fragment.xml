@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:elevation="8dp">
             <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/myicon"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:src="@drawable/kitty"

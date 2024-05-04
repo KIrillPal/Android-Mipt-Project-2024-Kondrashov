@@ -25,6 +25,7 @@ import java.util.Date
 import java.util.Locale
 
 data class MessageData (
+    val message_id: Int,
     val message: String,
     val authorName: String?,
     val authorIconId: Int?,
@@ -33,7 +34,8 @@ data class MessageData (
 )
 
 class ChatAdapter(
-    private val values: List<MessageData>
+    private val values: List<MessageData>,
+    private val chatId: Int
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     lateinit var context: Context
 
@@ -102,6 +104,7 @@ class ChatAdapter(
                     hld.authorIconView.setImageResource(item.authorIconId)
                     hld.authorIconView.setOnClickListener {
                         controller?.openProfile(
+                            chatId,
                             item.authorName!!,
                             "online",
                             "Unknown description",

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import com.google.android.material.imageview.ShapeableImageView
 
 // TODO: Rename parameter arguments, choose names that match
@@ -46,16 +47,22 @@ class SignupFragment : ControlledFragment() {
         }
 
         submit.setOnClickListener {
-
+            val nickname = loginView.text.toString()
             val password1 = passwordView.text.toString()
             val password2 = passwordConfirmView.text.toString()
 
             if (password1 != password2) {
-                // TODO: Passwords are not the same!
-                Log.i("ddd", "Passwords are not the same")
+                val errorTextView = view?.findViewById<TextView>(R.id.autherrortext)
+                errorTextView?.text = "Пароли не совпадают"
+                errorTextView?.visibility = View.VISIBLE
             }
-            else getNavController()?.openChatListFragment()
-
+            else getDataController()?.signup(
+                nickname,
+                password1,
+                this::onConnectionFailed,
+                this::onSignupSucceeded,
+                this::onSignupFailed
+            )
         }
 
         val settingsButton = view.findViewById<ShapeableImageView>(R.id.regsettings)
@@ -76,6 +83,22 @@ class SignupFragment : ControlledFragment() {
         outState.putString(LOGIN_KEY, loginView?.text.toString())
         outState.putString(PASSWORD_KEY, passwordView?.text.toString())
         outState.putString(CONFIRM_PASSWORD_KEY, passwordConfirmView?.text.toString())
+    }
+
+    private fun onConnectionFailed() {
+        val errorTextView = view?.findViewById<TextView>(R.id.autherrortext)
+        errorTextView?.text = "Нет соединения с сервером"
+        errorTextView?.visibility = View.VISIBLE
+    }
+
+    private fun onSignupFailed() {
+        val errorTextView = view?.findViewById<TextView>(R.id.autherrortext)
+        errorTextView?.text = "Такое имя уже существует"
+        errorTextView?.visibility = View.VISIBLE
+    }
+
+    private fun onSignupSucceeded(userId : Int) {
+        getNavController()?.openChatListFragment()
     }
 
     data class Backup (
