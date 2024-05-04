@@ -72,12 +72,13 @@ class NavController(
     }
 
     fun openProfile(
+        userId: Int,
         name: String,
         info: String,
         status: String,
         iconId: Int
     ) {
-        val profile = UserProfileFragment.newInstance(name, info, status, iconId)
+        val profile = UserProfileFragment.newInstance(userId, name, info, status, iconId)
         fragmentManager
             .beginTransaction()
             .setCustomAnimations(
@@ -91,8 +92,8 @@ class NavController(
             .commit()
     }
 
-    fun openChat(name: String, description: String, iconId: Int) {
-        val chat = ChatFragment.newInstance(name, description, iconId)
+    fun openChat(chatId: Int, name: String, description: String, iconId: Int) {
+        val chat = ChatFragment.newInstance(chatId, name, description, iconId)
         fragmentManager
             .beginTransaction()
             .setCustomAnimations(

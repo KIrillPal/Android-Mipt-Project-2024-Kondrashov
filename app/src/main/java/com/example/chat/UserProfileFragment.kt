@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.google.android.material.imageview.ShapeableImageView
 
 
+private const val ARG_USERID = "userId"
 private const val ARG_NICKNAME = "nickname"
 private const val ARG_STATUS = "status"
 private const val ARG_INFO = "info"
@@ -17,6 +18,7 @@ private const val ARG_ICON = "iconId"
 
 class UserProfileFragment : ControlledFragment() {
     // TODO: Rename and change types of parameters
+    private var userId: Int? = null
     private var nickname: String? = "Nickname"
     private var status: String? = ""
     private var info: String? = ""
@@ -25,6 +27,7 @@ class UserProfileFragment : ControlledFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
+            userId = it.getInt(ARG_USERID)
             nickname = it.getString(ARG_NICKNAME)
             status = it.getString(ARG_STATUS)
             info = it.getString(ARG_INFO)
@@ -50,6 +53,7 @@ class UserProfileFragment : ControlledFragment() {
         profileIcon.setImageResource(iconId!!)
         writeButton.setOnClickListener {
             getNavController()?.openChat(
+                userId!!,
                 nickname!!,
                 status!!,
                 iconId!!
@@ -61,9 +65,10 @@ class UserProfileFragment : ControlledFragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(nickname: String, info: String, status: String, iconId: Int) =
+        fun newInstance(userId: Int, nickname: String, info: String, status: String, iconId: Int) =
             UserProfileFragment().apply {
                 arguments = Bundle().apply {
+                    putInt(ARG_USERID, userId)
                     putString(ARG_NICKNAME, nickname)
                     putString(ARG_STATUS, status)
                     putString(ARG_INFO, info)
