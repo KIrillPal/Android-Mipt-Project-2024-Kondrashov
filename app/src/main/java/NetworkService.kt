@@ -144,7 +144,7 @@ interface ChatService {
 }
 
 class NetworkService {
-    private val baseUrl : String = "http://192.168.1.4:3001/"
+    private val baseUrl : String = "http://localhost:3001/"
     private val client = OkHttpClient.Builder()
         .connectTimeout(1000, TimeUnit.MILLISECONDS)
         .readTimeout(1000, TimeUnit.MILLISECONDS)
