@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">ChatApp</string>
-    <string name="scheme">com.app.chat</string>
-    <string name="user_login">nickname</string>
-    <string name="user_password">password</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="my_static_icon_url">https://znanie-svet.ru/wp-content/uploads/2022/10/canada-raises-quota-for-controversial-seal-hunt.jpg</string>
-</resources>
