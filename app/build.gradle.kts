@@ -73,6 +73,7 @@ dependencies {
     implementation("com.squareup.retrofit2:adapter-rxjava2:2.4.0")
     implementation("io.reactivex.rxjava2:rxandroid:2.0.1")
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.google.android.gms:play-services-location:21.2.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

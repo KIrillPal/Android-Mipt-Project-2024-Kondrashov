@@ -1,28 +1,37 @@
 package com.example.chat
-import android.net.http.HttpResponseCache
+import android.Manifest
+import android.app.Activity
+import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Location
 import android.util.Log
-import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
-import androidx.fragment.app.Fragment
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.requestPermissions
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
-import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import io.reactivex.disposables.Disposable
-import kotlinx.serialization.json.Json
-import okhttp3.internal.wait
 import retrofit2.HttpException
 import java.text.SimpleDateFormat
-import java.util.Dictionary
+
 
 class ApplicationData : ViewModel() {
 
     private val network = NetworkService()
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private var userId : Int? = null
     private var fileUrlCache = mapOf<Int, String>()
 
     val dialogChatType = "dialog"
+
+
+    fun init(activity : Activity) {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity)
+    }
 
     fun getUser() : Int? {
         return userId
@@ -221,6 +230,31 @@ class ApplicationData : ViewModel() {
                 .placeholder(R.drawable.green_kitty)
                 .into(iconView)
         }
+    }
+
+    fun getLoc(activity: FragmentActivity, context: Context, uiCallback: (Double, Double) -> Unit) {
+        if (ActivityCompat.checkSelfPermission(
+                context,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                context,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            val permissions = arrayOf<String>(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+            requestPermissions(activity, permissions, 0)
+            return
+        }
+
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location: Location? ->
+                location?.run {
+                    uiCallback(latitude, longitude)
+                }
+            }
     }
 
     private fun logThrowable(throwable: Throwable) {

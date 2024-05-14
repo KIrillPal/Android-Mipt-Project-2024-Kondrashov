@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity(), HasController {
         else if (savedInstanceState == null) {
             controller.openSplashScreen()
         }
-        // Else we restore automatically
+        // Set up Application Data class
+        appdata.init(this)
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -35,6 +36,16 @@ class MainActivity : AppCompatActivity(), HasController {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+    }
+
+    fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: Array<Int>
+    ): Unit {
+        if (requestCode == 0) {
+
+        }
     }
 
     override fun getNavController() : NavController {

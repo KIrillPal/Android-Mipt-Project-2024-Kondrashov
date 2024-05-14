@@ -5,7 +5,7 @@
     <string name="user_password">password</string>
     <string name="my_static_icon_url">https://znanie-svet.ru/wp-content/uploads/2022/10/canada-raises-quota-for-controversial-seal-hunt.jpg</string>
 
-    <string name="login_title">Log in, be my guest</string>
+    <string name="login_title">Welcome, stranger</string>
     <string name="login_hint">Login</string>
     <string name="password_hint">Password</string>
     <string name="login_button_title">LOG IN</string>
