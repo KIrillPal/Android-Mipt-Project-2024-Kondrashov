@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 
 import com.example.chat.databinding.ChatCardBinding
 import com.google.android.material.imageview.ShapeableImageView
@@ -65,7 +66,7 @@ class ChatListAdapter(
                     controller?.openProfile(
                         item.chatId,
                         item.chatName,
-                        "online",
+                        ContextCompat.getString(context, R.string.online),
                         item.descr,
                         item.chatIconId
                     )

@@ -2,6 +2,7 @@ package com.example.chat
 
 import android.content.Intent
 import android.content.Intent.ACTION_MAIN
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -46,12 +47,10 @@ class MainActivity : AppCompatActivity(), HasController {
 
     private fun checkCredentials(uri : Uri?, onSuccess : (Int)->Unit, onFailed : ()->Unit) {
         val paramSet = uri?.getQueryParameterNames()
-        // TODO: Adapt logging through database
         val login = uri?.getQueryParameter("login")
         val password = uri?.getQueryParameter("password")
         if (login != null && password != null)
             getData()?.login(login, password, onFailed, onSuccess, onFailed)
-
     }
 
     private fun processIntent() {
@@ -68,7 +67,6 @@ class MainActivity : AppCompatActivity(), HasController {
             }
             "chatlist" -> {
                 checkCredentials(data, {
-                    Log.i("ddd", it.toString())
                     controller.openChatListFragment()
                 }, {
                     controller.openLoginScreen()

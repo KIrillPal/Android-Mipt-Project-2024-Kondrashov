@@ -10,6 +10,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getString
 import androidx.core.util.toRange
 import androidx.core.view.marginBottom
 import androidx.core.view.marginEnd
@@ -106,8 +107,8 @@ class ChatAdapter(
                         controller?.openProfile(
                             chatId,
                             item.authorName!!,
-                            "online",
-                            "Unknown description",
+                            getString(context, R.string.online),
+                            getString(context, R.string.loading),
                             item.authorIconId
                         )
                     }

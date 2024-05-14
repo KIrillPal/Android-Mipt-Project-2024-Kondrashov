@@ -11,16 +11,7 @@ import android.widget.EditText
 import android.widget.TextView
 import com.google.android.material.imageview.ShapeableImageView
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SignupFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SignupFragment : ControlledFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +44,7 @@ class SignupFragment : ControlledFragment() {
 
             if (password1 != password2) {
                 val errorTextView = view?.findViewById<TextView>(R.id.autherrortext)
-                errorTextView?.text = "Пароли не совпадают"
+                errorTextView?.text = getString(R.string.passw_not_match)
                 errorTextView?.visibility = View.VISIBLE
             }
             else getDataController()?.signup(
@@ -87,13 +78,13 @@ class SignupFragment : ControlledFragment() {
 
     private fun onConnectionFailed() {
         val errorTextView = view?.findViewById<TextView>(R.id.autherrortext)
-        errorTextView?.text = "Нет соединения с сервером"
+        errorTextView?.text = getString(R.string.no_connection)
         errorTextView?.visibility = View.VISIBLE
     }
 
     private fun onSignupFailed() {
         val errorTextView = view?.findViewById<TextView>(R.id.autherrortext)
-        errorTextView?.text = "Такое имя уже существует"
+        errorTextView?.text = getString(R.string.name_already_in_use)
         errorTextView?.visibility = View.VISIBLE
     }
 

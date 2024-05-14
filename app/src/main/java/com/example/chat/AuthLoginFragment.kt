@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import com.google.android.material.imageview.ShapeableImageView
 
@@ -82,13 +83,13 @@ class AuthLoginFragment : ControlledFragment() {
 
     private fun onConnectionFailed() {
         val errorTextView = view?.findViewById<TextView>(R.id.autherrortext)
-        errorTextView?.text = "Нет соединения с сервером"
+        errorTextView?.text = getString(R.string.no_connection)
         errorTextView?.visibility = View.VISIBLE
     }
 
     private fun onLoginFailed() {
         val errorTextView = view?.findViewById<TextView>(R.id.autherrortext)
-        errorTextView?.text = "Неверные логин или пароль"
+        errorTextView?.text = getString(R.string.invalid_creds)
         errorTextView?.visibility = View.VISIBLE
     }
 

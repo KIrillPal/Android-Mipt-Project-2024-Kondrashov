@@ -57,11 +57,11 @@ class ChatFragment : ControlledFragment() {
             setHeader()
         }
         dataController?.loadChatMembersInfo(chatId!!) { info ->
-            if (info.chatType == "dialog") {
+            if (info.chatType == dataController.dialogChatType) {
                 chatdescr = info.chatDescription
                 chaticonid = info.chatIconId
             }
-            else chatdescr = info.memberCnt.toString() + " members"
+            else chatdescr = info.memberCnt.toString() + getString(R.string.members_suffix)
             val chatDescrView = view?.findViewById<TextView>(R.id.chatdescr)
             chatDescrView?.text = chatdescr
 
@@ -128,7 +128,7 @@ class ChatFragment : ControlledFragment() {
                 getNavController()?.openProfile(
                     chatId!!,
                     chatname!!,
-                    "online",
+                    getString(R.string.online),
                     chatdescr!!,
                     chaticonid ?: R.drawable.red_kitty
                 )

@@ -32,7 +32,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
-                    android:text="Nickname"
+                    android:text="@string/loading"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:textSize="28dp"
@@ -45,7 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
-                    android:text="online"
+                    android:text="@string/online"
                     android:textColor="#ADB8FF"
                     android:textStyle="bold"
                     android:textSize="18dp"/>
@@ -58,7 +58,7 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="10dp"
                     android:scrollbars="vertical"
-                    android:text="описание этого замечательного человека (или чата)"
+                    android:text=""
                     android:textColor="#FFC9C9"
                     android:textSize="18dp"/>
             </LinearLayout>
@@ -80,7 +80,7 @@
                     android:layout_marginLeft="40dp"
                     android:layout_marginRight="40dp"
                     android:layout_marginTop="10dp"
-                    android:text="Написать"
+                    android:text="@string/do_chat"
                     android:autoSizeTextType="uniform"
                     android:theme="@style/RedButton"
                     />
@@ -91,7 +91,7 @@
                     android:layout_marginLeft="40dp"
                     android:layout_marginRight="40dp"
                     android:layout_marginTop="0dp"
-                    android:text="ЗАБЛОКИРОВАТЬ"
+                    android:text="@string/do_ban"
                     android:autoSizeTextType="uniform"
                     />
             </LinearLayout>

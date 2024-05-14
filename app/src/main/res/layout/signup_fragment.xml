@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Знакомимся"
+                android:text="@string/register_title"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:textColor="@color/black"
@@ -68,27 +68,27 @@
                 android:layout_height="wrap_content"
                 android:textSize="21dp"
                 android:maxLines="1"
-                android:hint="Ваш логин"/>
+                android:hint="@string/your_login_hint"/>
             <EditText
                 android:id="@+id/newpasswordtext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="21dp"
                 android:maxLines="1"
-                android:hint="Ваш пароль"/>
+                android:hint="@string/your_password_hint"/>
             <EditText
                 android:id="@+id/newpasswordconfirm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="21dp"
                 android:maxLines="1"
-                android:hint="Повторите пароль"/>
+                android:hint="@string/repeat_password"/>
             <Button
                 android:id="@+id/regsignupbutton"
                 android:theme="@style/RedButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="РЕГИСТРАЦИЯ"
+                android:text="@string/registration"
                 android:textSize="20dp"
                 android:maxLines="1"
                 />
@@ -97,7 +97,7 @@
                 android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Нет соединения с сервером"
+                android:text="@string/no_connection"
                 android:textAlignment="center"
                 android:textColor="@color/main"/>
         </LinearLayout>

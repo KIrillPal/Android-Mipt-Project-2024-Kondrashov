@@ -43,7 +43,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Заходи, гостем будешь"
+                android:text="@string/login_title"
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/purple_500"
                 android:shadowColor="@color/black"
@@ -55,20 +55,20 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:textSize="21dp"
-                android:hint="Логин"/>
+                android:hint="@string/login_hint"/>
             <EditText
                 android:id="@+id/passwordtext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="21dp"
                 android:maxLines="1"
-                android:hint="Пароль"/>
+                android:hint="@string/password_hint"/>
             <Button
                 android:id="@+id/loginbutton"
                 android:theme="@style/RedButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Зайти"
+                android:text="@string/login_button_title"
                 android:autoSizeTextType="uniform"
                 />
             <TextView
@@ -76,7 +76,7 @@
                 android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Нет соединения с сервером"
+                android:text="@string/no_connection"
                 android:textAlignment="center"
                 android:textColor="@color/main"/>
         </LinearLayout>
@@ -98,12 +98,12 @@
                 android:textColor="@color/main"
                 android:textSize="20dp"
                 android:layout_marginBottom="7dp"
-                android:text="Еще не смешарик?"/>
+                android:text="@string/register_hint"/>
             <Button
                 android:id="@+id/signupbutton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="НЕ СМЕШАРИК"
+                android:text="@string/register_button_title"
                 android:autoSizeTextType="uniform"
                 android:padding="10dp"/>
         </LinearLayout>

@@ -144,7 +144,7 @@ interface ChatService {
 }
 
 class NetworkService {
-    private val baseUrl : String = "http://localhost:3001/"
+    private val baseUrl : String = "http://192.168.1.6:3001"
     private val client = OkHttpClient.Builder()
         .connectTimeout(1000, TimeUnit.MILLISECONDS)
         .readTimeout(1000, TimeUnit.MILLISECONDS)
@@ -205,8 +205,6 @@ class NetworkService {
     }
 
     fun createGetChatCardInfoRequest(userId : Int, chatId : Int) : Single<List<ChatCardInfo>> {
-        Log.i("ddd", "gothere")
-        Log.i("ddd", "lele " + chatListService.hashCode().toString())
         val request = chatListService.getChatCardInfo(userId, chatId)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.newThread())
@@ -256,7 +254,6 @@ class NetworkService {
     }
 
     fun createSendMessageRequest(authorId : Int, chatId : Int, message_text : String) : Single<Int> {
-        Log.i("ddd", "a " + authorId.toString() + " " + chatId.toString() + " " + message_text)
         val request = chatService.postSendMessage(MessagePSQLSend(authorId, chatId, message_text))
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.computation())

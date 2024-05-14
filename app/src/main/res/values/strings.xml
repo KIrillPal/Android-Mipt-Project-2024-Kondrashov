@@ -3,7 +3,31 @@
     <string name="scheme">com.app.chat</string>
     <string name="user_login">nickname</string>
     <string name="user_password">password</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="my_static_icon_url">https://znanie-svet.ru/wp-content/uploads/2022/10/canada-raises-quota-for-controversial-seal-hunt.jpg</string>
+
+    <string name="login_title">Log in, be my guest</string>
+    <string name="login_hint">Login</string>
+    <string name="password_hint">Password</string>
+    <string name="login_button_title">LOG IN</string>
+    <string name="register_hint">Are we met?</string>
+    <string name="register_button_title">IF NOT, SIGN UP</string>
+    <string name="loading">Loading...</string>
+    <string name="all_chats">All chats</string>
+    <string name="language">Language</string>
+    <string name="theme">Theme</string>
+    <string name="text_size">Text size</string>
+    <string name="register_title">"Let's get closer"</string>
+    <string name="registration">SIGN UP</string>
+    <string name="your_login_hint">Your login</string>
+    <string name="your_password_hint">Your password</string>
+    <string name="repeat_password">Repeat the password</string>
+    <string name="no_connection">No connection to server</string>
+    <string name="invalid_creds">Invalid login or password</string>
+    <string name="passw_not_match">The passwords do not match</string>
+    <string name="name_already_in_use">This name is already in use</string>
+    <string name="online">online</string>
+    <string name="do_chat">GO TO CHAT</string>
+    <string name="do_ban">BAN</string>
+    <string name="members_suffix">" members"</string>
+    <string name="settings">Settings</string>
 </resources>

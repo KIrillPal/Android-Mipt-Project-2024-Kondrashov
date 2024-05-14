@@ -17,7 +17,6 @@ private const val ARG_INFO = "info"
 private const val ARG_ICON = "iconId"
 
 class UserProfileFragment : ControlledFragment() {
-    // TODO: Rename and change types of parameters
     private var userId: Int? = null
     private var nickname: String? = "Nickname"
     private var status: String? = ""

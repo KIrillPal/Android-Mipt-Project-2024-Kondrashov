@@ -22,6 +22,8 @@ class ApplicationData : ViewModel() {
     private var userId : Int? = null
     private var fileUrlCache = mapOf<Int, String>()
 
+    val dialogChatType = "dialog"
+
     fun getUser() : Int? {
         return userId
     }
@@ -78,7 +80,7 @@ class ApplicationData : ViewModel() {
     ) {
         val timestamp = parseTime(card_info.message_time)
 
-        val iconId = if (chat_info.chat_type == "dialog" ) R.drawable.red_kitty else R.drawable.green_kitty
+        val iconId = if (chat_info.chat_type == dialogChatType ) R.drawable.red_kitty else R.drawable.green_kitty
 
         uiCallback(
             ChatData(
@@ -100,7 +102,7 @@ class ApplicationData : ViewModel() {
             val card_request = network.createGetChatCardInfoRequest(userId!!, chatId)
             val card_sub = card_request.subscribe({chatCardInfo ->
                 val card_info = chatCardInfo[0]
-                if (info.chat_type == "dialog") {
+                if (info.chat_type == dialogChatType) {
                     val title_request = network.createGetDialogNameRequest(userId!!, chatId)
                     val title_sub = title_request.subscribe({title ->
                         updateChatData(info, card_info, title, uiCallback)
@@ -116,7 +118,7 @@ class ApplicationData : ViewModel() {
         val info_request = network.createGetChatInfoRequest(chatId)
         val subscription = info_request.subscribe({responseChatInfo ->
             val info = responseChatInfo[0]
-            if (info.chat_type == "dialog") {
+            if (info.chat_type == dialogChatType) {
                 val request1 = network.createGetDialogUserRequest(userId!!, chatId)
                 val sub = request1.subscribe({user2Id ->
                     val request2 = network.createGetUserRequest(user2Id)
@@ -154,7 +156,6 @@ class ApplicationData : ViewModel() {
         val request = network.createGetChatsRequest(userId!!)
         val subscription = request.subscribe({responseList ->
             val newChatIds : MutableList<Int> = arrayListOf()
-            Log.i("ddd", "Loaded list " + responseList.toString())
             for (row in responseList) {
                 newChatIds.add(row.chat_id)
             }
