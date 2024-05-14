@@ -144,13 +144,12 @@ interface ChatService {
 }
 
 class NetworkService {
-    private val baseUrl : String = "http://192.168.1.6:3001"
+    private val baseUrl : String = "http://10.0.2.2:3001"
     private val client = OkHttpClient.Builder()
         .connectTimeout(1000, TimeUnit.MILLISECONDS)
         .readTimeout(1000, TimeUnit.MILLISECONDS)
         .writeTimeout(1000, TimeUnit.MILLISECONDS)
         .build()
-
 
     private val authService = Retrofit.Builder()
         .baseUrl(baseUrl)
